@@ -1,0 +1,17 @@
+{
+  "name": "follow39",
+  "description": "Personal Claude Code plugins",
+  "owner": {
+    "name": "Artem Ivanov"
+  },
+  "plugins": [
+    {
+      "name": "core",
+      "source": "./plugins/core"
+    },
+    {
+      "name": "sdd",
+      "source": "./plugins/sdd"
+    }
+  ]
+}

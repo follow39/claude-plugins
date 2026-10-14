@@ -1,0 +1,28 @@
+{
+  "name": "sdd",
+  "description": "Spec-driven development: specification, design, plan, and step-by-step execution with independent reviews",
+  "author": {
+    "name": "Artem Ivanov"
+  },
+  "dependencies": ["core"],
+  "userConfig": {
+    "specs_dir": {
+      "type": "string",
+      "title": "Specifications",
+      "description": "Directory of the specifications, relative to the repository root",
+      "default": "docs/specs"
+    },
+    "designs_dir": {
+      "type": "string",
+      "title": "Designs",
+      "description": "Directory of the designs, relative to the repository root",
+      "default": "docs/designs"
+    },
+    "plans_dir": {
+      "type": "string",
+      "title": "Plans",
+      "description": "Directory of the plans, with one subdirectory for each repository",
+      "default": "~/.local/share/sdd/plans"
+    }
+  }
+}

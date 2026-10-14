@@ -1,0 +1,7 @@
+{
+  "name": "core",
+  "description": "General agents and skills that other plugins build on",
+  "author": {
+    "name": "Artem Ivanov"
+  }
+}
