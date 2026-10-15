@@ -1,6 +1,6 @@
 ---
 name: workflow
-description: Entry point for spec-driven development. Runs the worktree, specification, design, plan, execution, and integration steps in order, with user approval between steps. Use when the user starts or continues a feature, or asks which spec-driven development step comes next.
+description: Entry point for spec-driven development. Runs the worktree, specification, design, plan, execution, and integration steps in order. Use when the user starts or continues a feature, or asks which spec-driven development step comes next.
 ---
 
 # Spec-driven development
@@ -25,8 +25,7 @@ and templates.
 
 Reuse existing specifications, designs, and reviewed plans when applicable.
 
-Obtain explicit user approval for each workflow step before proceeding
-to the next.
+When a step is complete, continue with the next step.
 
 If work reveals a requirement, design, or plan change, present it to the
 user. Revise and review the affected document through its owning skill
