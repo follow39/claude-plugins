@@ -47,9 +47,10 @@ marked as done.
    Mark its checklist item as done only when its actions, verification, and
    review are complete and no blocking finding remains.
 7. Start one `core:committer` agent. Give it the files that the implementer
-   changed. Wait for its report. Do not start the next step and do not
-   change a file before the commit exists. If the committer reports a
-   problem, stop and present it to the user.
+   changed, and the goal of the step as the reason. Wait for its report. Do
+   not start the next step and do not change a file before the commit
+   exists. If the committer reports a problem, stop and present it to the
+   user.
 8. Continue with the next step.
 
 Only one agent changes files at a time. Do not start the implementer or the

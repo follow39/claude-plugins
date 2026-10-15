@@ -175,5 +175,6 @@ completion from implementation and verification.
 ## Commit
 
 After the user approves the result, start one `core:committer` agent. Give it
-the files that this skill created, changed, or deleted. Wait for its
-report. Do not change a file before the commit exists. Report the commit.
+the files that this skill created, changed, or deleted, and the feature name
+as the reason. Wait for its report. Do not change a file before the commit
+exists. Report the commit.
