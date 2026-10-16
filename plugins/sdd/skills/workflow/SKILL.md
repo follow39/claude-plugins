@@ -1,6 +1,6 @@
 ---
 name: workflow
-description: Entry point for spec-driven development. Runs the worktree, specification, design, plan, execution, and integration steps in order. Use when the user starts or continues a feature, or asks which spec-driven development step comes next.
+description: Entry point for spec-driven development. Runs the worktree, specification, design, plan, execution, and integration stages in order. Use when the user starts or continues a feature, or asks which spec-driven development stage comes next.
 ---
 
 # Spec-driven development
@@ -11,7 +11,7 @@ Use the skill that matches the requested work. Each skill owns its procedure
 and templates.
 
 1. Use `sdd:start-worktree` to create a worktree and a branch for the
-   feature. Do the next steps in that worktree.
+   feature. Do the next stages in that worktree.
 2. Use `sdd:create-spec` to establish required behavior, resolve
    requirements with the user, and review the specification.
 3. Use `sdd:create-design` to establish the technical approach, resolve
@@ -25,7 +25,7 @@ and templates.
 
 Reuse existing specifications, designs, and reviewed plans when applicable.
 
-When a step is complete, continue with the next step.
+When a stage is complete, continue with the next stage.
 
 If work reveals a requirement, design, or plan change, present it to the
 user. Revise and review the affected document through its owning skill
@@ -35,4 +35,4 @@ Present findings and unclear decisions to the user one at a time.
 Record deferred questions in TODO files only with explicit user approval.
 Deferring a blocking question does not complete the affected work.
 
-When the user requests a proposal, present it without modifying files.
+When the user asks for a preview, show it without modifying files.

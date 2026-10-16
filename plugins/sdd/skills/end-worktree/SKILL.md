@@ -17,7 +17,7 @@ The original repository is the first entry of `git worktree list`.
 
 ## Check the state
 
-- If a plan of the feature in `${user_config.plans_dir}/<repository>/`, where
+- If a plan of the feature in `${user_config.data_dir}/<repository>/plans/`, where
   `<repository>` is the directory name of the original repository, has an
   unfinished step, tell the user and ask if the work ends now.
 - Inspect the Git status of the worktree. A merge moves only commits. If

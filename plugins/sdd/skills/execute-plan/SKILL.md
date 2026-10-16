@@ -73,11 +73,16 @@ Present changes that require the `sdd:create-spec`, `sdd:create-design`, or
 `sdd:create-plan` skill to the user. Resume dependent work only after the
 revision and review of the affected documents and plan.
 
-Resolve each question, or obtain explicit user approval to record it in the
-relevant specification or design TODO file. Use the template of the skill
-that owns that file. Recording a blocking question does not complete the
-step. Skip required tests only with explicit user approval and report the
-resulting verification gap.
+Resolve each question, or obtain explicit user approval to record it:
+
+- Behavior or scope question: `${user_config.specs_dir}/<feature>_todo.md`,
+  with [../create-spec/assets/template-spec-todo.md](../create-spec/assets/template-spec-todo.md).
+- Technical question: `${user_config.designs_dir}/<feature>_todo.md`,
+  with [../create-design/assets/template-design-todo.md](../create-design/assets/template-design-todo.md).
+
+Recording a blocking question does not complete the step. Skip required
+tests only with explicit user approval and report the resulting
+verification gap.
 
 ## Finish
 

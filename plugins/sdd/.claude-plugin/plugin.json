@@ -18,11 +18,11 @@
       "description": "Directory of the designs, relative to the repository root",
       "default": "docs/designs"
     },
-    "plans_dir": {
+    "data_dir": {
       "type": "string",
-      "title": "Plans",
-      "description": "Directory of the plans, with one subdirectory for each repository",
-      "default": "~/.local/share/sdd/plans"
+      "title": "Data",
+      "description": "Directory of the data outside the repository, with one subdirectory for each repository",
+      "default": "~/.local/share/sdd"
     }
   }
 }

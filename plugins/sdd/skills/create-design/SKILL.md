@@ -172,7 +172,7 @@ Do not present a self-review as an independent review.
 
 ## Report
 
-When the user asks for a proposal, present it without modifying files.
+When the user asks for a preview, show the design without modifying files.
 Otherwise, create or update the requested design documents.
 
 Report the design, review outcomes, unresolved decisions, and necessary

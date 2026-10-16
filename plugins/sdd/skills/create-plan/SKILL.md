@@ -28,7 +28,7 @@ the path of [assets/template-plan.md](assets/template-plan.md), and the
 user's decisions about the plan, in the user's words.
 
 Write the proposed plan to
-`${user_config.plans_dir}/<repository>/<feature>_<YYYYMMDDTHHMMSSZ>.md`
+`${user_config.data_dir}/<repository>/plans/<feature>_<YYYYMMDDTHHMMSSZ>.md`
 without changes. Use a UTC timestamp and the design's lowercase kebab-case
 feature name. `<repository>` is the directory name of the original
 repository, the first entry of `git worktree list`.
@@ -63,9 +63,14 @@ clarify it before you continue. Preserve agreed decisions. Use the
 skill for material technical changes. Resume planning from their agreed,
 reviewed results.
 
-Resolve each question, or obtain explicit user approval to record it in the
-relevant specification or design TODO file. Use the template of the skill
-that owns that file. Deferred questions continue to block dependent work.
+Resolve each question, or obtain explicit user approval to record it:
+
+- Behavior or scope question: `${user_config.specs_dir}/<feature>_todo.md`,
+  with [../create-spec/assets/template-spec-todo.md](../create-spec/assets/template-spec-todo.md).
+- Technical question: `${user_config.designs_dir}/<feature>_todo.md`,
+  with [../create-design/assets/template-design-todo.md](../create-design/assets/template-design-todo.md).
+
+Deferred questions continue to block dependent work.
 
 When automated verification is impractical, agree on an alternative with the
 user. Skip required tests only with explicit user approval.
@@ -91,4 +96,4 @@ Call the plan ready only when required reviews are complete and no unresolved
 decision blocks its planned work. If reviewers are unavailable, the review
 remains pending.
 
-When the user asks for a proposal, present the plan without modifying files.
+When the user asks for a preview, show the plan without modifying files.

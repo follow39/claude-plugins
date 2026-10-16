@@ -34,5 +34,5 @@ later work for the feature there.
 ## Report
 
 Report the directory, the branch, and the base commit. Name the
-uncommitted changes that are not in the worktree. The next step is the
+uncommitted changes that are not in the worktree. The next stage is the
 `sdd:create-spec` skill.

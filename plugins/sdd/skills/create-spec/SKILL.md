@@ -164,8 +164,8 @@ the same change as the requirements. It must follow the test rules of the
 project. Do not expand a specification-only request into
 implementation work.
 
-When the user asks for a proposal, present the proposed content without
-modifying files. Otherwise, create or update the requested specification
+When the user asks for a preview, show the content without modifying
+files. Otherwise, create or update the requested specification
 documents.
 
 Report the resulting specification, all review outcomes, unresolved
