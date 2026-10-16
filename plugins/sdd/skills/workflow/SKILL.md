@@ -25,7 +25,11 @@ and templates.
 
 Reuse existing specifications, designs, and reviewed plans when applicable.
 
-When a stage is complete, continue with the next stage.
+When a stage is complete, continue with the next stage. To find the next
+stage, read `progress.md` in `${user_config.data_dir}/<repository>/<feature>/`.
+The next stage is the first section whose status is not `Done.` When all
+sections are `Done.`, the next stage is `sdd:execute-plan` until every step of
+`plan.md` is done, then `sdd:end-worktree`.
 
 If work reveals a requirement, design, or plan change, present it to the
 user. Revise and review the affected document through its owning skill

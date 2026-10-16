@@ -19,8 +19,8 @@ specification file gets the same name. If the user gave no name, ask.
 - Inspect the Git status. Uncommitted changes stay in the current tree and
   are not in the new worktree. List them to the user. Do not commit, stash,
   or move them.
-- If a branch or a directory with the target name exists, stop and ask the
-  user. Do not reuse or remove it.
+- If a branch, a worktree directory, or a feature directory with the target
+  name exists, stop and ask the user. Do not reuse or remove it.
 
 ## Create the worktree
 
@@ -31,8 +31,14 @@ Run `git worktree add -b <feature> ../<repository>-<feature>` from the
 repository root. Then move the session into the new directory. Do all
 later work for the feature there.
 
+## Create the progress file
+
+The feature directory is `${user_config.data_dir}/<repository>/<feature>/`.
+Create it. Copy [assets/template-progress.md](assets/template-progress.md)
+to `progress.md` in it, and replace `Feature name` with the feature name.
+
 ## Report
 
-Report the directory, the branch, and the base commit. Name the
-uncommitted changes that are not in the worktree. The next stage is the
-`sdd:create-spec` skill.
+Report the directory, the branch, the base commit, and the progress file.
+Name the uncommitted changes that are not in the worktree. The next stage is
+the `sdd:create-spec` skill.

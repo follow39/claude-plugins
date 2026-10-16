@@ -18,10 +18,10 @@ its path with `git worktree list --porcelain | head -1 | cut -d' ' -f2-`.
 
 ## Check the state
 
-- The plan of the feature is
-  `${user_config.data_dir}/<repository>/plans/<feature>.md`, where
-  `<repository>` is the directory name of the original repository. If the
-  plan has an unfinished step, tell the user and ask if the work ends now.
+- The feature directory is `${user_config.data_dir}/<repository>/<feature>/`,
+  where `<repository>` is the directory name of the original repository. If
+  `plan.md` in it has an unfinished step, tell the user and ask if the work
+  ends now.
 - Inspect the Git status of the worktree. A merge moves only commits. If
   uncommitted changes exist, list them and ask the user which of them
   belong to the result. Start one `core:committer` agent for those files and
@@ -60,8 +60,10 @@ Do this only after a successful merge, and only after the user confirms.
 1. Move the session to the original repository.
 2. Remove the worktree directory with `git worktree remove`.
 3. Delete the feature branch with `git branch -d`.
-4. Delete the plan of the feature with
-   `rm -f ${user_config.data_dir}/<repository>/plans/<feature>.md`.
+4. Delete the feature directory with
+   `rm -f <dir>/plan.md <dir>/progress.md && rmdir <dir>`, where `<dir>` is
+   `${user_config.data_dir}/<repository>/<feature>`. `rmdir` refuses a
+   directory that contains other files.
 
 If one of these operations fails, stop and report. Do not force it.
 

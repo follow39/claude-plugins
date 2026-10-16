@@ -8,6 +8,31 @@ description: Create or refine a feature specification in this repository using i
 Convert the user's request into a focused specification of required behavior.
 The user makes the decisions about requirements.
 
+## Track the progress
+
+The progress file is `progress.md` in the feature directory
+`${user_config.data_dir}/<repository>/<feature>/`, where `<repository>` is
+the directory name of the original repository. If the file is missing, stop
+and tell the user. Do not give the file to an agent.
+
+As soon as the feature is known, replace the items of the `## Specification`
+section with this list, and set `Status: In progress.`:
+
+```text
+- [ ] Read the context
+- [ ] Start three spec-proposer agents
+- [ ] Reconcile the decisions with the user
+- [ ] Resolve or record the deferred questions
+- [ ] Write the specification
+- [ ] Start the independent reviews
+- [ ] Resolve the findings
+- [ ] Do the final check and report
+- [ ] Commit after user approval
+```
+
+Check off each item when it is complete. After the commit exists, set
+`Status: Done.`
+
 ## Read the context
 
 - Keep technical implementation choices in the design.

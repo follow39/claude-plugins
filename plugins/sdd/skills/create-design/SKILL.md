@@ -8,6 +8,32 @@ description: Create or refine a feature design in this repository using independ
 Describe how to implement the agreed specification of one feature.
 Keep technical decisions explicit and base them on repository constraints.
 
+## Track the progress
+
+The progress file is `progress.md` in the feature directory
+`${user_config.data_dir}/<repository>/<feature>/`, where `<repository>` is
+the directory name of the original repository. If the file is missing, stop
+and tell the user. Do not give the file to an agent.
+
+As soon as the feature is known, replace the items of the `## Design`
+section with this list, and set `Status: In progress.`:
+
+```text
+- [ ] Read the context
+- [ ] Start three design-proposer agents
+- [ ] Reconcile the decisions with the user
+- [ ] Resolve or record the deferred questions
+- [ ] Evaluate technical boundaries
+- [ ] Write the design
+- [ ] Start the independent reviews
+- [ ] Resolve the findings
+- [ ] Report
+- [ ] Commit after user approval
+```
+
+Check off each item when it is complete. After the commit exists, set
+`Status: Done.`
+
 ## Select the design
 
 Use the feature that the user explicitly identified or that the current

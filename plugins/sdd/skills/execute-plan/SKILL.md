@@ -9,12 +9,16 @@ Execute the plan's actions in order and record verified results.
 
 ## Check the prerequisite
 
-The plan is `${user_config.data_dir}/<repository>/plans/<feature>.md`, where
-`<repository>` is the directory name of the original repository. Use the
-feature that the user or the current conversation identified. Otherwise, ask
-which feature to implement. If the plan is missing or unreviewed, report that
-to the user and stop before implementation. Do the same if you cannot
-establish its review status. Do not invoke `sdd:create-plan` automatically.
+Use the feature that the user or the current conversation identified.
+Otherwise, ask which feature to implement. The feature directory is
+`${user_config.data_dir}/<repository>/<feature>/`, where `<repository>` is the
+directory name of the original repository.
+
+The plan is `plan.md` in the feature directory. Read the `## Plan` section of
+`progress.md` in the same directory. Do not give `progress.md` to an agent.
+If the plan is missing or its status is not `Done.`, report that to the user
+and stop before implementation. Do not invoke `sdd:create-plan`
+automatically.
 
 Read the plan, linked specification and design, and related TODO files.
 Inspect Git status. Confirm the plan still matches the current documents

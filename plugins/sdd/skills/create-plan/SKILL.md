@@ -7,6 +7,30 @@ description: Create or revise an implementation plan from an agreed specificatio
 
 Produce a reviewed plan that an agent can execute one step at a time.
 
+## Track the progress
+
+The progress file is `progress.md` in the feature directory
+`${user_config.data_dir}/<repository>/<feature>/`, where `<repository>` is
+the directory name of the original repository. If the file is missing, stop
+and tell the user. Do not give the file to an agent.
+
+As soon as the feature is known, replace the items of the `## Plan`
+section with this list, and set `Status: In progress.`:
+
+```text
+- [ ] Read the context
+- [ ] Start one plan-proposer agent
+- [ ] Write the plan and show the summary
+- [ ] Resolve the questions with the user
+- [ ] Start the independent reviews
+- [ ] Resolve the findings
+- [ ] Report
+- [ ] The user approves the plan
+```
+
+Check off each item when it is complete. After the user approves the plan,
+set `Status: Done.`
+
 ## Read the context
 
 Use the design that the user or the current conversation identified.
@@ -18,9 +42,9 @@ Check that the design matches the specification before planning affected work.
 
 ## Write the plan
 
-The plan is `${user_config.data_dir}/<repository>/plans/<feature>.md`.
-`<feature>` is the design's lowercase kebab-case feature name. Get
-`<repository>` with
+The plan is `plan.md` in the feature directory
+`${user_config.data_dir}/<repository>/<feature>/`. `<feature>` is the
+design's lowercase kebab-case feature name. Get `<repository>` with
 `basename "$(git worktree list --porcelain | head -1 | cut -d' ' -f2-)"`.
 
 If the plan exists, stop and tell the user. The user chooses one:
@@ -96,5 +120,7 @@ questions.
 Call the plan ready only when required reviews are complete and no unresolved
 decision blocks its planned work. If reviewers are unavailable, the review
 remains pending.
+
+When the plan is ready, ask the user to approve it.
 
 When the user asks for a preview, show the plan without modifying files.
