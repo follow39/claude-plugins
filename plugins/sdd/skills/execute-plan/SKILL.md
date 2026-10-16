@@ -9,11 +9,12 @@ Execute the plan's actions in order and record verified results.
 
 ## Check the prerequisite
 
-Use the plan that the user or the current conversation identified. If no
-plan is identified, ask which plan to implement. If the plan is missing or
-unreviewed, report that to the user and stop before implementation. Do the
-same if you cannot establish its review status. Do not invoke `sdd:create-plan`
-automatically.
+The plan is `${user_config.data_dir}/<repository>/plans/<feature>.md`, where
+`<repository>` is the directory name of the original repository. Use the
+feature that the user or the current conversation identified. Otherwise, ask
+which feature to implement. If the plan is missing or unreviewed, report that
+to the user and stop before implementation. Do the same if you cannot
+establish its review status. Do not invoke `sdd:create-plan` automatically.
 
 Read the plan, linked specification and design, and related TODO files.
 Inspect Git status. Confirm the plan still matches the current documents

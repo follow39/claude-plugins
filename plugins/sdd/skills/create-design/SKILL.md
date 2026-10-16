@@ -10,18 +10,9 @@ Keep technical decisions explicit and base them on repository constraints.
 
 ## Select the design
 
-Use the feature or design that the user explicitly identified or that the
-current conversation established.
-
-Otherwise, inspect filesystem modification timestamps for
-`${user_config.designs_dir}/*.md`, excluding `*_todo.md`, and select the most
-recently modified design. Check timestamps directly. Do not infer the order
-from filenames, directory listing order, or Git commit dates.
-
-State which design you selected and read its linked specification.
-If multiple designs share the latest timestamp, ask the user to choose.
-If no design exists and the user identified no feature, ask which feature
-to design.
+Use the feature that the user explicitly identified or that the current
+conversation established. Otherwise, ask the user which feature to design.
+State the selected feature.
 
 ## Read the context
 
@@ -112,6 +103,14 @@ depends on uncertain performance.
 
 Document only considerations that affect this feature. Resolve choices
 that change required behavior with the user before adopting them.
+
+## Changes to other features
+
+When the work requires a change to another feature, stop and present the
+change to the user as a separate feature. After the other feature is merged
+into `<target>`, run `git merge <target>` in this worktree before you
+continue. `<target>` is the branch that is checked out in the original
+repository. If Git reports a conflict, stop and report.
 
 ## Write the design
 

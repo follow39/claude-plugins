@@ -13,13 +13,15 @@ Use the worktree of the current session. If the session is in the original
 repository, use the feature name that the user gives. If the user gave
 none, ask.
 
-The original repository is the first entry of `git worktree list`.
+The original repository is the first entry of `git worktree list`. Get
+its path with `git worktree list --porcelain | head -1 | cut -d' ' -f2-`.
 
 ## Check the state
 
-- If a plan of the feature in `${user_config.data_dir}/<repository>/plans/`, where
-  `<repository>` is the directory name of the original repository, has an
-  unfinished step, tell the user and ask if the work ends now.
+- The plan of the feature is
+  `${user_config.data_dir}/<repository>/plans/<feature>.md`, where
+  `<repository>` is the directory name of the original repository. If the
+  plan has an unfinished step, tell the user and ask if the work ends now.
 - Inspect the Git status of the worktree. A merge moves only commits. If
   uncommitted changes exist, list them and ask the user which of them
   belong to the result. Start one `core:committer` agent for those files and
@@ -41,11 +43,15 @@ resolve a conflict and do not force the merge.
 
 ### Pull request
 
-Push the feature branch and create the pull request. Use the feature name
-as the title and the purpose of the specification as the description.
-Report its address. Keep the worktree.
-
-If the repository has no remote, report that and ask the user again.
+1. Run `git remote`. If it prints nothing, report that the repository has
+   no remote and ask the user again. If it prints more than one remote, ask
+   the user which one to use.
+2. Run `gh auth status`. If `gh` is missing or not signed in, report that
+   and stop.
+3. Run `git push -u <remote> <feature>`.
+4. Run `gh pr create --head <feature> --title "<feature>" --body "<purpose>"`.
+   `<purpose>` is the Purpose section of the specification.
+5. Report the address that `gh pr create` prints. Keep the worktree.
 
 ## Remove the worktree
 
@@ -54,8 +60,10 @@ Do this only after a successful merge, and only after the user confirms.
 1. Move the session to the original repository.
 2. Remove the worktree directory with `git worktree remove`.
 3. Delete the feature branch with `git branch -d`.
+4. Delete the plan of the feature with
+   `rm -f ${user_config.data_dir}/<repository>/plans/<feature>.md`.
 
-If Git refuses one of these operations, stop and report. Do not force it.
+If one of these operations fails, stop and report. Do not force it.
 
 ## Report
 

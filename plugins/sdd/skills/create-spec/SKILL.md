@@ -74,6 +74,14 @@ while such questions remain unresolved.
 
 Apply this rule to questions discovered at any stage, including review.
 
+## Changes to other features
+
+When the work requires a change to another feature, stop and present the
+change to the user as a separate feature. After the other feature is merged
+into `<target>`, run `git merge <target>` in this worktree before you
+continue. `<target>` is the branch that is checked out in the original
+repository. If Git reports a conflict, stop and report.
+
 ## Write the specification
 
 Use `${user_config.specs_dir}/<feature>.md`, with a lowercase kebab-case

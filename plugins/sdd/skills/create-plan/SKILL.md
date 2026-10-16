@@ -9,10 +9,8 @@ Produce a reviewed plan that an agent can execute one step at a time.
 
 ## Read the context
 
-Use the design that the user or the current conversation identified. Otherwise,
-inspect modification timestamps in `${user_config.designs_dir}/`, excluding
-`*_todo.md`, and select the latest design. Ask the user if multiple designs
-share the latest timestamp or if no design exists. State the selected design.
+Use the design that the user or the current conversation identified.
+Otherwise, ask the user which design to plan. State the selected design.
 
 Read its specification, related TODO files, and relevant code and tests.
 Apply the `core:engineering-principles` skill.
@@ -20,18 +18,21 @@ Check that the design matches the specification before planning affected work.
 
 ## Write the plan
 
-If a plan exists for the same work, check it against the current documents
-and code, then resume it.
+The plan is `${user_config.data_dir}/<repository>/plans/<feature>.md`.
+`<feature>` is the design's lowercase kebab-case feature name. Get
+`<repository>` with
+`basename "$(git worktree list --porcelain | head -1 | cut -d' ' -f2-)"`.
 
-Otherwise, start one `sdd:plan-proposer` agent. Give it the path of the design,
+If the plan exists, stop and tell the user. The user chooses one:
+
+- Execute the existing plan with the `sdd:execute-plan` skill.
+- Replace the existing plan. Delete it before you continue.
+
+Start one `sdd:plan-proposer` agent. Give it the path of the design,
 the path of [assets/template-plan.md](assets/template-plan.md), and the
 user's decisions about the plan, in the user's words.
 
-Write the proposed plan to
-`${user_config.data_dir}/<repository>/plans/<feature>_<YYYYMMDDTHHMMSSZ>.md`
-without changes. Use a UTC timestamp and the design's lowercase kebab-case
-feature name. `<repository>` is the directory name of the original
-repository, the first entry of `git worktree list`.
+Write the proposed plan to the plan path without changes.
 
 The plan has a linked checklist immediately after the brief. Each checklist
 item has a dedicated heading. Below the heading, the step contains:
