@@ -12,7 +12,8 @@ Produce a reviewed plan that an agent can execute one step at a time.
 The progress file is `progress.md` in the feature directory
 `${user_config.data_dir}/<repository>/<feature>/`, where `<repository>` is
 the directory name of the original repository. If the file is missing, stop
-and tell the user. Do not give the file to an agent.
+and tell the user. Do not give the file to an agent. Change the file only
+with the Edit tool, not with Bash.
 
 As soon as the feature is known, replace the items of the `## Plan`
 section with this list, and set `Status: In progress.`:

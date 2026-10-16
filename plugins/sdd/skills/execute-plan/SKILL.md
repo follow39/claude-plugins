@@ -49,6 +49,7 @@ marked as done.
    to the same implementer. Ask the reviewer that reported a finding to
    recheck its substantive correction.
 6. Update the step's `Result` with actual verification and review outcomes.
+   Change the plan only with the Edit tool, not with Bash.
    Mark its checklist item as done only when its actions, verification, and
    review are complete and no blocking finding remains.
 7. Start one `core:committer` agent. Give it the files that the implementer
