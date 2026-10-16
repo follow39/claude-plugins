@@ -22,20 +22,22 @@ specification file gets the same name. If the user gave no name, ask.
 - If a branch, a worktree directory, or a feature directory with the target
   name exists, stop and ask the user. Do not reuse or remove it.
 
-## Create the worktree
-
-- Branch: `<feature>`, from the current commit.
-- Directory: `<repository>-<feature>`, next to the repository directory.
-
-Run `git worktree add -b <feature> ../<repository>-<feature>` from the
-repository root. Then move the session into the new directory. Do all
-later work for the feature there.
-
 ## Create the progress file
 
 The feature directory is `${user_config.data_dir}/<repository>/<feature>/`.
 Create it. Copy [assets/template-progress.md](assets/template-progress.md)
 to `progress.md` in it, and replace `Feature name` with the feature name.
+
+## Create the worktree
+
+Call the `EnterWorktree` tool with `name` set to the feature name. The
+plugin creates the worktree `${user_config.worktrees_dir}/<feature>` on the
+branch `<feature>`, from the current commit, and the session moves into it.
+Do all later work for the feature there.
+
+If the session is not in that directory on that branch, the plugin did not
+create the worktree. Call the `ExitWorktree` tool with `action: "remove"`,
+and report it to the user.
 
 ## Report
 

@@ -46,15 +46,21 @@ const fromPlan = (text: string) => {
   return section && progress('execute', section.lines)
 }
 
-// The directory of the feature directories, with `~` expanded.
-async function dataDir($: EngineInterface, options: PluginOptions) {
-  const dir = String(options.data_dir)
-  return dir.startsWith('~/') ? `${await $.env.get('HOME')}${dir.slice(1)}` : dir
+// A directory option with `~` expanded and no trailing `/`.
+async function expand($: EngineInterface, dir: string) {
+  const path = dir.startsWith('~/') ? `${await $.env.get('HOME')}${dir.slice(1)}` : dir
+  return path.replace(/\/+$/, '')
 }
 
-// The trimmed output of a Git command, or undefined when it fails.
-async function git($: EngineInterface, ...args: string[]) {
-  const run = await $.process.run(['git', ...args]).catch(() => undefined)
+// The directory of the feature directories.
+async function dataDir($: EngineInterface, options: PluginOptions) {
+  return expand($, String(options.data_dir))
+}
+
+// The trimmed output of a Git command, or undefined when it fails. It runs in
+// `cwd`, or in the session's working directory.
+async function git($: EngineInterface, args: string[], cwd?: string) {
+  const run = await $.process.run(['git', ...args], { cwd }).catch(() => undefined)
   return run?.exitCode === 0 ? run.stdout.trim() : undefined
 }
 
@@ -71,6 +77,9 @@ async function featureStatus($: EngineInterface, dir: string) {
 }
 
 export const register: Register = (on, options) => {
+  // The status line is restored once, at the first prompt of a session.
+  let restored = false
+
   // The model starts a stage through the Skill tool.
   on('tool.call', { tool: 'Skill' }, ($, e, next) => {
     if (e.skill in STAGES) $.ui.status(STAGES[e.skill])
@@ -95,17 +104,37 @@ export const register: Register = (on, options) => {
     return result
   })
 
-  // A session starts or resumes in a feature worktree. The feature is the
-  // branch, and the repository is the directory of the first worktree.
-  on('classic.SessionStart', async ($, e, next) => {
-    const result = await next(e)
-    const list = await git($, 'worktree', 'list', '--porcelain')
+  // The first prompt of a session in a feature worktree. A resumed session
+  // enters its worktree after it starts, so this runs at the first prompt.
+  // The feature is the branch, and the repository is the directory of the
+  // first worktree.
+  on('prompt.submit', async ($, e, next) => {
+    if (restored) return next(e)
+    restored = true
+    const list = await git($, ['worktree', 'list', '--porcelain'])
     const root = list?.split('\n')[0]?.replace(/^worktree /, '')
-    const feature = await git($, 'branch', '--show-current')
-    if (!root || !feature) return result
-    const dir = `${await dataDir($, options)}/${root.split('/').pop()}/${feature}`
-    const status = await featureStatus($, dir)
-    if (status) $.ui.status(status)
-    return result
+    const feature = await git($, ['branch', '--show-current'])
+    if (root && feature) {
+      const dir = `${await dataDir($, options)}/${root.split('/').pop()}/${feature}`
+      const status = await featureStatus($, dir)
+      if (status) $.ui.status(status)
+    }
+    return next(e)
+  })
+
+  // `EnterWorktree` creates a worktree. A name with a feature directory is a
+  // feature of `sdd:start-worktree`: its worktree is `<worktrees_dir>/<name>`
+  // on the branch `<name>`, from the current commit. Every other worktree is
+  // left to Claude Code.
+  on('classic.WorktreeCreate', async ($, e, next) => {
+    const root = await git($, ['rev-parse', '--show-toplevel'], e.cwd)
+    if (!root) return next(e)
+    const feature = `${await dataDir($, options)}/${root.split('/').pop()}/${e.name}`
+    if (!await readOrEmpty($, `${feature}/progress.md`)) return next(e)
+    const dir = await expand($, String(options.worktrees_dir))
+    const path = `${dir.startsWith('/') ? dir : `${root}/${dir}`}/${e.name}`
+    const run = await $.process.run(['git', 'worktree', 'add', '-b', e.name, path], { cwd: root })
+    if (run.exitCode !== 0) return { block: true, stopReason: run.stderr.trim() }
+    return { worktreePath: path }
   })
 }

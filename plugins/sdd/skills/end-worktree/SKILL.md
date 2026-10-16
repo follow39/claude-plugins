@@ -32,14 +32,24 @@ its path with `git worktree list --porcelain | head -1 | cut -d' ' -f2-`.
 Use the method that the user named: merge or pull request. If the user
 named none, ask. Do not choose a method.
 
+The target is the branch that is checked out in the original repository.
+Name the target and ask the user to confirm it.
+
 ### Merge
 
-The target is the branch that is checked out in the original repository.
-Name the target and ask the user to confirm it. Run the merge in the
-original repository.
-
-If Git reports a conflict or refuses the merge, stop and report. Do not
-resolve a conflict and do not force the merge.
+1. In the worktree, run `git rebase <target>`. If Git reports a conflict,
+   stop and report the conflicting files. Do not resolve a conflict. Leave
+   the rebase in progress, so that the user can resolve it in the worktree.
+2. In the worktree, run the `Verify` commands of every step in `plan.md`
+   again. If a command does not give its expected result, stop and report.
+3. Call the `ExitWorktree` tool with `action: "keep"`. It moves the session
+   back to the original repository and does not remove the worktree. If it
+   reports that no worktree session is active and the session is still in
+   the worktree, stop and tell the user to run the `sdd:end-worktree` skill
+   from the original repository.
+4. Run `git merge --ff-only <feature>` in the original repository. If Git
+   refuses, the target changed after the rebase. Stop and report. Do not
+   force the merge.
 
 ### Pull request
 
@@ -48,17 +58,28 @@ resolve a conflict and do not force the merge.
    the user which one to use.
 2. Run `gh auth status`. If `gh` is missing or not signed in, report that
    and stop.
-3. Run `git push -u <remote> <feature>`.
-4. Run `gh pr create --head <feature> --title "<feature>" --body "<purpose>"`.
-   `<purpose>` is the Purpose section of the specification.
-5. Report the address that `gh pr create` prints. Keep the worktree.
+3. In the worktree, run `git fetch <remote>`, then
+   `git rebase <remote>/<target>`. If Git reports a conflict, stop and
+   report the conflicting files. Do not resolve a conflict. Leave the rebase
+   in progress, so that the user can resolve it in the worktree.
+4. In the worktree, run the `Verify` commands of every step in `plan.md`
+   again. If a command does not give its expected result, stop and report.
+5. Run `git push -u <remote> <feature>`. If the branch was already on the
+   remote, run `git push --force-with-lease <remote> <feature>` instead.
+6. If `gh pr view <feature>` shows a pull request, skip this step. Otherwise,
+   run `gh pr create --base <target> --head <feature> --title "<feature>"
+   --body "<purpose>"`. `<purpose>` is the Purpose section of the
+   specification.
+7. Report the address of the pull request. Keep the worktree.
 
 ## Remove the worktree
 
 Do this only after a successful merge, and only after the user confirms.
 
-1. Move the session to the original repository.
-2. Remove the worktree directory with `git worktree remove`.
+1. If the session is still in the worktree, call the `ExitWorktree` tool
+   with `action: "keep"`.
+2. Remove the worktree with
+   `git worktree remove ${user_config.worktrees_dir}/<feature>`.
 3. Delete the feature branch with `git branch -d`.
 4. Delete the feature directory with
    `rm -f <dir>/plan.md <dir>/progress.md && rmdir <dir>`, where `<dir>` is

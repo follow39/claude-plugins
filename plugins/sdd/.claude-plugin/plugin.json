@@ -23,6 +23,12 @@
       "title": "Data",
       "description": "Directory of the data outside the repository, with one subdirectory for each repository",
       "default": "~/.local/share/sdd"
+    },
+    "worktrees_dir": {
+      "type": "string",
+      "title": "Worktrees",
+      "description": "Directory of the feature worktrees, relative to the repository root, or absolute",
+      "default": ".worktrees"
     }
   }
 }
