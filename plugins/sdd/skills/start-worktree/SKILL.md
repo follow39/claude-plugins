@@ -28,6 +28,10 @@ The feature directory is `${user_config.data_dir}/<repository>/<feature>/`.
 Create it. Copy [assets/template-progress.md](assets/template-progress.md)
 to `progress.md` in it, and replace `Feature name` with the feature name.
 
+Check off each item of the `## Worktree` section when it is complete.
+Change the file only with the Edit tool, not with Bash. After the report,
+set `Status: Done.`
+
 ## Create the worktree
 
 Call the `EnterWorktree` tool with `name` set to the feature name. The
@@ -39,8 +43,17 @@ If the session is not in that directory on that branch, the plugin did not
 create the worktree. Call the `ExitWorktree` tool with `action: "remove"`,
 and report it to the user.
 
+## Verify the baseline
+
+In the worktree, run the build and test commands of the project once,
+before any change. Find them in the project's `CLAUDE.md`, its README, or
+its build files. If you cannot find them, ask the user. Do not change a
+file to make a command pass. If a command fails, report the failure and ask
+the user whether the work starts anyway.
+
 ## Report
 
-Report the directory, the branch, the base commit, and the progress file.
+Report the directory, the branch, the base commit, the progress file, and
+the result of the baseline.
 Name the uncommitted changes that are not in the worktree. The next stage is
 the `sdd:create-spec` skill.

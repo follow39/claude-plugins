@@ -2,6 +2,7 @@ import type { EngineInterface, PluginOptions, Register } from 'claude-code'
 
 // The status line text for each skill. `undefined` clears the line.
 const STAGES: Record<string, string | undefined> = {
+  'sdd:start-worktree': 'worktree',
   'sdd:create-spec': 'spec',
   'sdd:create-design': 'design',
   'sdd:create-plan': 'plan',
@@ -11,6 +12,7 @@ const STAGES: Record<string, string | undefined> = {
 
 // The status line text for each section of `progress.md`.
 const SECTIONS: Record<string, string> = {
+  Worktree: 'worktree',
   Specification: 'spec',
   Design: 'design',
   Plan: 'plan',
