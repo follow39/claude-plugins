@@ -37,8 +37,21 @@ Write the message in this form:
 
     <Body>
 
-- Verb: `Add` for something new, `Update` for a change, `Remove` for a
-  removal, `Fix` for a correction, `Implement` for new behavior in code.
+- Verb: the first verb in this list that fits the change:
+  - `Fix`: a correction of a defect.
+  - `Revert`: the undo of earlier work.
+  - `Implement`: new behavior in code.
+  - `Add`: something new that is not behavior, such as a file, a document,
+    or a test.
+  - `Remove`: a removal.
+  - `Rename`: a new name, with no other change.
+  - `Move`: a new location, with no other change.
+  - `Refactor`: a change to the structure of code, with no change to its
+    behavior.
+  - `Restructure`: a change to the organization of documents, files, or
+    a process.
+  - `Bump`: a new version of a dependency.
+  - `Update`: any other change.
 - Object: what the commit adds or changes.
 - The first line has at most 60 characters and no period at the end.
 - Body: one to three short lines that say what the commit contains and, if
