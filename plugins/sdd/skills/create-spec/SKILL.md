@@ -1,57 +1,64 @@
 ---
 name: create-spec
-description: Create or refine a feature specification in this repository using independent requirements proposals, user decisions, and separate consistency, focus, and technical reviews. Use when the user asks to specify a feature or turn an idea into requirements.
+description: Refines the user request into required behavior. Use when the user asks to specify a feature, or to turn an idea or a request into requirements.
 ---
 
-# Create a specification
-
-Convert the user's request into a focused specification of required behavior.
-The user makes the decisions about requirements.
+# Create specifications
 
 ## Track the progress
 
-The progress file is `progress.md` in the feature directory
-`${user_config.data_dir}/<repository>/<feature>/`, where `<repository>` is
-the directory name of the original repository. If the file is missing, stop
-and tell the user. Do not give the file to an agent. Change the file only
-with the Edit tool, not with Bash.
+The progress file is
+`${user_config.data_dir}/<repository>/<work>/progress.md`, where
+`<repository>` is the directory name of the original repository. Use the
+work that the user or the current conversation identified. Otherwise, ask.
+If the file is missing, stop and tell the user. Do not give the file to an
+agent. Change the file only with the Edit tool, not with Bash.
 
-As soon as the feature is known, replace the items of the `## Specification`
-section with this list, and set `Status: In progress.`:
+When the skill starts, replace the items of the `## Specification` section
+with this list, and set `Status: In progress.`:
 
 ```text
 - [ ] Read the context
 - [ ] Start three spec-proposer agents
+- [ ] Agree on the scope with the user
 - [ ] Reconcile the decisions with the user
 - [ ] Resolve or record the deferred questions
-- [ ] Write the specification
+- [ ] Write the specifications
 - [ ] Start the independent reviews
 - [ ] Resolve the findings
-- [ ] Do the final check and report
+- [ ] Report
 - [ ] Commit after user approval
 ```
 
-Check off each item when it is complete. After the commit exists, set
-`Status: Done.`
+Check off each item as soon as it is complete, before you start the next
+item. After the commit exists, set `Status: Done.`
+
+## Scope
+
+The `## Scope` section of the progress file lists the features that this
+work creates, changes, or deletes, one name for each line.
+
+Find the scope from the request. Keep it small and focused: include a
+feature only when the work needs it. If the request is ambiguous, ask the
+user. Present each feature to the user with its name and the reason. When
+the user approves a feature, add its name to the scope immediately.
 
 ## Read the context
 
-- Keep technical implementation choices in the design.
+- Read the specification and the TODO file of each feature in the scope, if
+  they exist.
 - Read [assets/template-spec.md](assets/template-spec.md). If the user
   approves recording unresolved questions, also read
   [assets/template-spec-todo.md](assets/template-spec-todo.md).
 - Inspect related specifications and their TODO files. Do not read source
-  code or designs. The `sdd:spec-technical-reviewer` agent checks the
-  specification against them.
+  code or designs.
 
-Resolve repository paths from the repository root and template links from
-this skill's directory. Resolve links in generated documents from their
-destination in `${user_config.specs_dir}/`, not from the template's location.
+Resolve paths such as `${user_config.specs_dir}` from the root of the
+worktree. Resolve template links from this skill's directory. Resolve links
+in generated documents from their destination in
+`${user_config.specs_dir}/`, not from the template's location.
 
 ## Establish the requirements
-
-Use independent agents to explore the user's input before drafting the
-specification.
 
 ### Generate candidate requirements
 
@@ -60,9 +67,7 @@ request and subsequent user decisions, in the user's words. Do not add your
 interpretation or repository context.
 
 Do not share an agent's output with the other agents before all agents
-finish.
-
-Agent proposals are candidates, not agreed requirements.
+finish. Agent proposals are candidates, not agreed requirements.
 
 ### Reconcile with the user
 
@@ -71,9 +76,9 @@ Identify every disagreement, ambiguity, unsupported assumption, and
 difference in scope or behavior. Agreement between agents does not
 establish user intent.
 
-Present one decision at a time. Explain the question, available
-alternatives, and their practical consequences. You can recommend an
-option, but the user chooses.
+Agree on the scope first. Then present one decision at a time. Explain the
+question, available alternatives, and their practical consequences. You can
+recommend an option, but the user chooses.
 
 Wait for the user's answer before presenting the next decision. If the
 answer is ambiguous, clarify that same decision before you continue.
@@ -90,30 +95,24 @@ Do not decide unresolved behavior.
 
 ### Handle deferred decisions
 
-Resolve each question with the user, or obtain explicit user approval to record
-it in `${user_config.specs_dir}/<feature>_todo.md`. Do not finish while a
-question exists only in the conversation.
+Resolve each question with the user, or obtain explicit user approval to
+record it in the TODO file of the affected feature,
+`${user_config.specs_dir}/<feature>_todo.md`. Do not finish while a question
+exists only in the conversation.
 
 A deferred question remains unresolved and blocks the behavior that
-depends on its answer. Do not present the specification as fully agreed
+depends on its answer. Do not present a specification as fully agreed
 while such questions remain unresolved.
 
 Apply this rule to questions discovered at any stage, including review.
 
-## Changes to other features
+## Write the specifications
 
-When the work requires a change to another feature, stop and present the
-change to the user as a separate feature. After the other feature is merged
-into `<target>`, run `git merge <target>` in this worktree before you
-continue. `<target>` is the branch that is checked out in the original
-repository. If Git reports a conflict, stop and report.
-
-## Write the specification
-
-Use `${user_config.specs_dir}/<feature>.md`, with a lowercase kebab-case
-feature name. Keep one specification per feature. Update the existing
-specification when it already owns the behavior. Describe current required
-behavior and keep the document small and focused.
+For each feature in the scope, write, update, or delete
+`${user_config.specs_dir}/<feature>.md`. Keep one specification per feature.
+Update the existing specification when it already owns the behavior.
+Describe current required behavior and keep each document small and focused.
+Keep technical implementation choices out of the specifications.
 
 Follow the specification template. Remove irrelevant sections and replace
 all placeholders.
@@ -132,8 +131,7 @@ all placeholders.
 - Keep test references in tests, not in the specification.
 
 Acceptance criterion IDs describe the current specification. You can
-renumber, replace, or remove them. When you change IDs or behavior, identify
-the affected requirement references in tests.
+renumber, replace, or remove them.
 
 Record questions in `${user_config.specs_dir}/<feature>_todo.md` only with
 explicit user approval. Follow the specification TODO template and link the
@@ -149,14 +147,15 @@ Update documents in place. Use Git for history.
 After drafting, request these independent reviews. The reviewers work
 separately and do not see each other's findings.
 
-- Start three `sdd:spec-consistency-reviewer` agents. Give each agent the path
-  of the specification and the original request and subsequent user decisions,
-  in the user's words.
-- Start one `sdd:spec-technical-reviewer` agent. Give it the path of the
-  specification.
+- Start three `sdd:spec-consistency-reviewer` agents. Give each agent the paths
+  of the new and changed specifications, and the original request and
+  subsequent user decisions, in the user's words.
+- Start two `sdd:spec-technical-reviewer` agents. Give each agent the paths of
+  the new and changed specifications.
 - Start one `core:focus-reviewer` agent. Give it the original request and
-  subsequent user decisions as the task, the path of the specification as the
-  output, and [assets/template-spec.md](assets/template-spec.md) as a rule.
+  subsequent user decisions as the task, the paths of the new and changed
+  specifications as the output, and
+  [assets/template-spec.md](assets/template-spec.md) as a rule.
 
 ### Resolve findings
 
@@ -171,8 +170,7 @@ technical finding without a user decision. Do not give the technical
 findings to the other agents.
 
 Record unresolved questions in the specification TODO file only with
-explicit user approval. Do not silently expand scope or modify another
-feature's requirements.
+explicit user approval. Do not change a feature outside the scope.
 
 Ask the reviewer that reported a finding to recheck its substantive
 correction. If a finding remains unresolved, report it explicitly. Do not
@@ -181,34 +179,20 @@ claim that the review passed.
 If independent agents are unavailable, report that limitation. Do not
 present a self-review as an independent review.
 
-## Final check and report
+## Report
 
-Check these points:
+Check that the specifications contain every agreed requirement, that each
+criterion is testable, and that related specifications are consistent.
 
-- The specification contains every agreed requirement.
-- Each criterion is testable.
-- Related specifications are consistent.
-- Unresolved decisions remain explicit.
-
-Every specification requires a corresponding design. Identify each missing
-or affected design and the work necessary before implementation. Identify
-the tests and requirement references that the specification changes affect.
-Implementation must update the affected tests and requirement references in
-the same change as the requirements. It must follow the test rules of the
-project. Do not expand a specification-only request into
-implementation work.
+Report the scope, the specifications, the review outcomes, and the
+unresolved questions.
 
 When the user asks for a preview, show the content without modifying
-files. Otherwise, create or update the requested specification
-documents.
-
-Report the resulting specification, all review outcomes, unresolved
-questions, and necessary follow-up work. Distinguish specification
-completion from implementation and verification.
+files.
 
 ## Commit
 
 After the user approves the result, start one `core:committer` agent. Give it
-the files that this skill created, changed, or deleted, and the feature name
-as the reason. Wait for its report. Do not change a file before the commit
+the files that this skill created, changed, or deleted, and the work name as
+the reason. Wait for its report. Do not change a file before the commit
 exists. Report the commit.

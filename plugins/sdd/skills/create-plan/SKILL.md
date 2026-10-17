@@ -1,27 +1,26 @@
 ---
 name: create-plan
-description: Create or revise an implementation plan from an agreed specification and design. Organize concrete steps using TDD, resolve decisions with the user, and obtain independent plan reviews. Does not implement the plan.
+description: Turns the agreed designs into a plan that implements them. Use when the user asks to plan the implementation of agreed designs. Does not implement the plan.
 ---
 
-# Create an implementation plan
-
-Produce a reviewed plan that an agent can execute one step at a time.
+# Create a plan
 
 ## Track the progress
 
-The progress file is `progress.md` in the feature directory
-`${user_config.data_dir}/<repository>/<feature>/`, where `<repository>` is
-the directory name of the original repository. If the file is missing, stop
-and tell the user. Do not give the file to an agent. Change the file only
-with the Edit tool, not with Bash.
+The progress file is
+`${user_config.data_dir}/<repository>/<work>/progress.md`, where
+`<repository>` is the directory name of the original repository. Use the
+work that the user or the current conversation identified. Otherwise, ask.
+If the file is missing, stop and tell the user. Do not give the file to an
+agent. Change the file only with the Edit tool, not with Bash.
 
-As soon as the feature is known, replace the items of the `## Plan`
-section with this list, and set `Status: In progress.`:
+When the skill starts, replace the items of the `## Plan` section with this
+list, and set `Status: In progress.`:
 
 ```text
 - [ ] Read the context
 - [ ] Start one plan-proposer agent
-- [ ] Write the plan and show the summary
+- [ ] Write the plan
 - [ ] Resolve the questions with the user
 - [ ] Start the independent reviews
 - [ ] Resolve the findings
@@ -29,33 +28,27 @@ section with this list, and set `Status: In progress.`:
 - [ ] The user approves the plan
 ```
 
-Check off each item when it is complete. After the user approves the plan,
-set `Status: Done.`
+Check off each item as soon as it is complete, before you start the next
+item. After the user approves the plan, set `Status: Done.`
 
 ## Read the context
 
-Use the design that the user or the current conversation identified.
-Otherwise, ask the user which design to plan. State the selected design.
-
-Read its specification, related TODO files, and relevant code and tests.
-Apply the `core:engineering-principles` skill.
-Check that the design matches the specification before planning affected work.
+The `## Scope` section of the progress file lists the features of this
+work. Read the specification, the design, and the TODO files of each of
+them, and the relevant code and tests. Apply the
+`core:engineering-principles` skill. Check that each design matches its
+specification before you plan the affected work.
 
 ## Write the plan
 
-The plan is `plan.md` in the feature directory
-`${user_config.data_dir}/<repository>/<feature>/`. `<feature>` is the
-design's lowercase kebab-case feature name. Get `<repository>` with
-`basename "$(git worktree list --porcelain | head -1 | cut -d' ' -f2-)"`.
+The plan is `${user_config.data_dir}/<repository>/<work>/plan.md`. If it
+exists, stop and ask the user whether to keep it or to replace it. To
+replace it, delete it before you continue.
 
-If the plan exists, stop and tell the user. The user chooses one:
-
-- Execute the existing plan with the `sdd:execute-plan` skill.
-- Replace the existing plan. Delete it before you continue.
-
-Start one `sdd:plan-proposer` agent. Give it the path of the design,
-the path of [assets/template-plan.md](assets/template-plan.md), and the
-user's decisions about the plan, in the user's words.
+Start one `sdd:plan-proposer` agent. Give it the paths of the designs of the
+features in the scope, the path of
+[assets/template-plan.md](assets/template-plan.md), and the user's decisions
+about the plan, in the user's words.
 
 Write the proposed plan to the plan path without changes.
 
@@ -69,25 +62,21 @@ item has a dedicated heading. Below the heading, the step contains:
 - Verification commands and expected results.
 - A `Result: Pending.` field.
 
-Give document links as paths from the repository root. The specification is
-`${user_config.specs_dir}/<feature>.md` and the design is
-`${user_config.designs_dir}/<feature>.md`. Keep review and reporting
-procedures out of the plan.
+The plan is outside the worktree. Give each link as a path from the root of
+the worktree, for example `${user_config.specs_dir}/<feature>.md`. Link the
+specification and the design of each feature in the scope. Keep review and
+reporting procedures out of the plan.
 
-### Show the plan summary
+## Resolve questions
 
-After you write the plan, show the user a summary. List every step in its
-order. For each step, give its name and a brief explanation of what it does.
-Show the summary again in the final report if the steps changed.
+Present the proposer's questions and other unclear decisions to the user one
+at a time. Explain the alternatives and consequences, wait for an answer,
+and clarify it before you continue. Preserve agreed decisions.
 
-## Resolve questions and review
-
-Present the proposer's questions and other unclear decisions to the user one at
-a time. Explain the alternatives and consequences, wait for an answer, and
-clarify it before you continue. Preserve agreed decisions. Use the
-`sdd:create-spec` skill for requirement changes. Use the `sdd:create-design`
-skill for material technical changes. Resume planning from their agreed,
-reviewed results.
+If a decision changes required behavior, set the `## Specification` section
+of the progress file to `Status: In progress.` If it changes a design
+materially, set the `## Design` section to `Status: In progress.` Then stop,
+and tell the user which documents must change first.
 
 Resolve each question, or obtain explicit user approval to record it:
 
@@ -101,6 +90,8 @@ Deferred questions continue to block dependent work.
 When automated verification is impractical, agree on an alternative with the
 user. Skip required tests only with explicit user approval.
 
+## Independent review
+
 Request these independent reviews of the draft. The reviewers work
 separately and do not see each other's findings.
 
@@ -108,20 +99,24 @@ separately and do not see each other's findings.
   the plan and the user's decisions about the plan, in the user's words.
 - Start one `core:quality-reviewer` agent. Give it the path of the plan as
   the output, and the user's decisions about the plan, in the user's words.
-- Start one `core:focus-reviewer` agent. Give it the path of the design and
+- Start one `core:focus-reviewer` agent. Give it the paths of the designs and
   the user's decisions as the task, the path of the plan as the output, and
   [assets/template-plan.md](assets/template-plan.md) as a rule.
 
 Merge the findings that describe the same problem. Present every finding
 and disagreement to the user one at a time. Apply the decisions, revise
-affected steps, and obtain rechecks of substantive changes.
-Repeat the relevant review when later plan changes alter implementation or
-verification. Report the plan path, review outcomes, and any deferred
-questions.
-Call the plan ready only when required reviews are complete and no unresolved
-decision blocks its planned work. If reviewers are unavailable, the review
-remains pending.
+affected steps, and obtain rechecks of substantive changes. Repeat the
+relevant review when later plan changes alter implementation or
+verification. If reviewers are unavailable, the review remains pending.
 
-When the plan is ready, ask the user to approve it.
+## Report
+
+Show the user a summary of the plan. List every step in its order. For each
+step, give its name and a brief explanation of what it does.
+
+Report the plan path, the review outcomes, and the deferred questions. The
+plan is ready only when the required reviews are complete and no unresolved
+decision blocks its planned work. When the plan is ready, ask the user to
+approve it.
 
 When the user asks for a preview, show the plan without modifying files.

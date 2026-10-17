@@ -1,12 +1,14 @@
-# Implement feature name
+# Plan
 
 ## Brief
 
-Implement [specific outcome] according to the linked specification and
-design.
+Implement [specific outcome] according to the linked specifications and
+designs.
 
-Specification: [Feature name](specs-dir/feature-name.md)
-Design: [Feature name](designs-dir/feature-name.md)
+- Feature name: [specification](specs-dir/feature-name.md),
+  [design](designs-dir/feature-name.md)
+- Other feature: [specification](specs-dir/other-feature.md),
+  [design](designs-dir/other-feature.md)
 
 ## Checklist
 
@@ -33,7 +35,7 @@ Result: Pending.
 
 Depends on: Step 1.
 Files: [Concrete files to change]
-Requirements: `feature-name/AC-01`, `feature-name/AC-02`
+Requirements: `feature-name/AC-01`, `other-feature/AC-02`
 
 1. Add an integration test exercising [runtime entry point] and asserting
    [required observable behavior].

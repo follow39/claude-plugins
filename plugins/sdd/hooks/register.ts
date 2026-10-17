@@ -1,13 +1,13 @@
 import type { EngineInterface, PluginOptions, Register } from 'claude-code'
 
-// The status line text for each skill. `undefined` clears the line.
-const STAGES: Record<string, string | undefined> = {
-  'sdd:start-worktree': 'worktree',
+// The status line text for each stage skill.
+const STAGES: Record<string, string> = {
+  'sdd:start-work': 'worktree',
   'sdd:create-spec': 'spec',
   'sdd:create-design': 'design',
   'sdd:create-plan': 'plan',
   'sdd:execute-plan': 'execute',
-  'sdd:end-worktree': undefined,
+  'sdd:end-work': 'integrate',
 }
 
 // The status line text for each section of `progress.md`.
@@ -16,6 +16,7 @@ const SECTIONS: Record<string, string> = {
   Specification: 'spec',
   Design: 'design',
   Plan: 'plan',
+  Integration: 'integrate',
 }
 
 // Splits a Markdown file into its `## ` sections: the heading and the lines.
@@ -54,7 +55,7 @@ async function expand($: EngineInterface, dir: string) {
   return path.replace(/\/+$/, '')
 }
 
-// The directory of the feature directories.
+// The directory of the work directories.
 async function dataDir($: EngineInterface, options: PluginOptions) {
   return expand($, String(options.data_dir))
 }
@@ -71,9 +72,9 @@ async function readOrEmpty($: EngineInterface, path: string) {
   return $.fs.read(path).catch(() => '')
 }
 
-// The status of a feature directory: the stage in progress, otherwise the
+// The status of a work directory: the stage in progress, otherwise the
 // execution of the plan.
-async function featureStatus($: EngineInterface, dir: string) {
+async function workStatus($: EngineInterface, dir: string) {
   return fromProgress(await readOrEmpty($, `${dir}/progress.md`))
     ?? fromPlan(await readOrEmpty($, `${dir}/plan.md`))
 }
@@ -94,45 +95,45 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
-  // A skill changes `progress.md` or `plan.md` of a feature.
+  // A skill changes `progress.md` or `plan.md` of a work.
   on('tool.call', async ($, e, next) => {
     const result = await next(e)
     if ((e.tool !== 'Edit' && e.tool !== 'Write') || result.isError) return result
     const path = e.file_path
     if (!path.startsWith(`${await dataDir($, options)}/`)) return result
     if (!path.endsWith('/progress.md') && !path.endsWith('/plan.md')) return result
-    const status = await featureStatus($, path.slice(0, path.lastIndexOf('/')))
+    const status = await workStatus($, path.slice(0, path.lastIndexOf('/')))
     if (status) $.ui.status(status)
     return result
   })
 
-  // The first prompt of a session in a feature worktree. A resumed session
+  // The first prompt of a session in a work worktree. A resumed session
   // enters its worktree after it starts, so this runs at the first prompt.
-  // The feature is the branch, and the repository is the directory of the
+  // The work is the branch, and the repository is the directory of the
   // first worktree.
   on('prompt.submit', async ($, e, next) => {
     if (restored) return next(e)
     restored = true
     const list = await git($, ['worktree', 'list', '--porcelain'])
     const root = list?.split('\n')[0]?.replace(/^worktree /, '')
-    const feature = await git($, ['branch', '--show-current'])
-    if (root && feature) {
-      const dir = `${await dataDir($, options)}/${root.split('/').pop()}/${feature}`
-      const status = await featureStatus($, dir)
+    const work = await git($, ['branch', '--show-current'])
+    if (root && work) {
+      const dir = `${await dataDir($, options)}/${root.split('/').pop()}/${work}`
+      const status = await workStatus($, dir)
       if (status) $.ui.status(status)
     }
     return next(e)
   })
 
-  // `EnterWorktree` creates a worktree. A name with a feature directory is a
-  // feature of `sdd:start-worktree`: its worktree is `<worktrees_dir>/<name>`
-  // on the branch `<name>`, from the current commit. Every other worktree is
-  // left to Claude Code.
+  // `EnterWorktree` creates a worktree. A name with a work directory is a
+  // work of `sdd:start-work`: its worktree is `<worktrees_dir>/<name>` on the
+  // branch `<name>`, from the current commit. Every other worktree is left to
+  // Claude Code.
   on('classic.WorktreeCreate', async ($, e, next) => {
     const root = await git($, ['rev-parse', '--show-toplevel'], e.cwd)
     if (!root) return next(e)
-    const feature = `${await dataDir($, options)}/${root.split('/').pop()}/${e.name}`
-    if (!await readOrEmpty($, `${feature}/progress.md`)) return next(e)
+    const work = `${await dataDir($, options)}/${root.split('/').pop()}/${e.name}`
+    if (!await readOrEmpty($, `${work}/progress.md`)) return next(e)
     const dir = await expand($, String(options.worktrees_dir))
     const path = `${dir.startsWith('/') ? dir : `${root}/${dir}`}/${e.name}`
     const run = await $.process.run(['git', 'worktree', 'add', '-b', e.name, path], { cwd: root })

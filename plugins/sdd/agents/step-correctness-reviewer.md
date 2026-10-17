@@ -1,6 +1,6 @@
 ---
 name: step-correctness-reviewer
-description: Checks that the changes of one executed plan step implement the step and that its checks really pass. Runs the checks again. Use from `sdd:execute-plan` after each step. Returns findings and does not modify files.
+description: Checks that the changes of one executed plan step implement the step and that its checks really pass. Runs the checks again. Returns findings and does not modify files.
 tools: Read, Grep, Glob, Bash
 model: opus
 ---
@@ -24,7 +24,8 @@ If one of them is missing, report that and stop.
 
 ## Read the context
 
-- Read the step and the acceptance criteria that it names.
+- Read the step, and the acceptance criteria that it names in the linked
+  specifications.
 - Inspect the changes in the files that the report names.
 - Run the checks of the step again.
 
@@ -62,7 +63,7 @@ For each finding, give:
 3. The evidence.
 4. A concrete correction.
 
-If a correction needs a change to the plan, the design, or the
+If a correction needs a change to the plan, a design, or a
 specification, state the question. Do not decide.
 
 A review can report no findings. Do not invent issues to fill a checklist.
