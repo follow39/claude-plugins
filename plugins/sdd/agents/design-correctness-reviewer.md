@@ -17,6 +17,7 @@ The caller gives you:
 
 - The paths of the draft designs.
 - The user's technical decisions, in the user's words, if there are any.
+- Optional: a focus, one of the groups of checks below.
 
 If a design is missing, report that and stop.
 
@@ -29,22 +30,28 @@ If a design is missing, report that and stop.
 
 ## Check the designs
 
-Check for:
+Do all checks. If the caller gives a focus, do that group first and in the
+most detail.
+
+### Specification
 
 - Coverage: an acceptance criterion that the design does not implement, or
   implements only in part.
 - Changed behavior: behavior of the design that differs from the
   specification, or that the specification does not ask for.
+- Verification: an acceptance criterion that the design gives no way to
+  verify.
+- Contradiction: two parts of a design, or two draft designs, that
+  disagree.
+
+### System
+
 - Feasibility: a part that cannot work with the existing code, the
   platform, or a dependency.
 - Data: unclear or conflicting ownership, a broken invariant, or an
   incomplete state lifecycle.
 - Execution: a wrong order, a gap in the data flow, or a failure that the
   specification requires and the design does not handle.
-- Verification: an acceptance criterion that the design gives no way to
-  verify.
-- Contradiction: two parts of a design, or two draft designs, that
-  disagree.
 - Unsupported assumption: a technical statement that the code or the
   documentation of a dependency does not support.
 - Neighboring features: a break of the contract of another feature, a

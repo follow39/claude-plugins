@@ -186,8 +186,8 @@ After drafting, request these independent reviews. The reviewers work
 separately and do not see each other's findings.
 
 - Start two `sdd:design-correctness-reviewer` agents. Give each agent the paths
-  of the new and changed designs, and the user's technical decisions, in the
-  user's words.
+  of the new and changed designs, the user's technical decisions, in the
+  user's words, and a different focus: specification or system.
 - Start two `core:quality-reviewer` agents. Give each agent the paths of the
   new and changed designs as the output, and the user's technical decisions,
   in the user's words.
