@@ -19,6 +19,7 @@ The caller gives you:
 
 - The output: the paths of the files, or the text itself.
 - The user's technical decisions, in the user's words, if there are any.
+- Optional: a focus, one of the groups of rules below.
 
 If the output is missing, report that and stop.
 
@@ -31,6 +32,15 @@ The engineering principles and the technical rules in the project
 instructions are the rules.
 
 ## Check the output
+
+The rules form two groups:
+
+- Structure: encapsulation and ownership, DRY, KISS, and YAGNI.
+- Resources: performance and resource bounds, dependency selection and
+  reuse, and the technical rules of the project.
+
+Check all rules. If the caller gives a focus, check that group first and in
+the most detail.
 
 Find each part of the output that breaks a rule. A finding needs all of
 these:

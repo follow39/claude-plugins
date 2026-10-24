@@ -189,8 +189,8 @@ separately and do not see each other's findings.
   of the new and changed designs, the user's technical decisions, in the
   user's words, and a different focus: specification or system.
 - Start two `core:quality-reviewer` agents. Give each agent the paths of the
-  new and changed designs as the output, and the user's technical decisions,
-  in the user's words.
+  new and changed designs as the output, the user's technical decisions, in
+  the user's words, and a different focus: structure or resources.
 - Start one `core:focus-reviewer` agent. Give it the paths of the
   specifications and the user's technical decisions as the task, the paths of
   the new and changed designs as the output, and
