@@ -1,6 +1,6 @@
 ---
 name: engineering-principles
-description: Engineering principles for performance, encapsulation, DRY, KISS, YAGNI, and dependency selection. Use when designing, planning, implementing, or reviewing technical changes.
+description: Engineering principles. Use when designing, planning, implementing, or reviewing technical changes.
 ---
 
 # Engineering principles

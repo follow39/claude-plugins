@@ -1,6 +1,6 @@
 ---
 name: testing-principles
-description: Testing principles for test descriptions with requirement references, the given-when-then structure, and data-driven tests. Use when planning, writing, or reviewing tests.
+description: Testing principles. Use when planning, writing, or reviewing tests.
 ---
 
 # Testing principles
