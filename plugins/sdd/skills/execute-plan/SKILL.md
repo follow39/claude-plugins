@@ -83,8 +83,8 @@ check as passing.
 Ask each finding or unclear decision one at a time, as
 [Ask for decisions](#ask-for-decisions) describes. In the question, explain
 the evidence. Clarify an ambiguous answer before you present the next
-decision. Do not silently invent missing actions
-or verification instructions, change requirements, or expand the design.
+decision. Do not silently invent missing actions or verification
+instructions, change requirements, or expand the design.
 
 If a decision changes required behavior, set the `## Specification` section
 of the progress file to `Status: In progress.` If it changes a design
