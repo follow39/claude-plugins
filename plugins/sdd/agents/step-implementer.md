@@ -5,6 +5,7 @@ tools: Read, Grep, Glob, Edit, Write, Bash
 model: sonnet
 skills:
   - core:engineering-principles
+  - core:testing-principles
 ---
 
 # Implement a plan step

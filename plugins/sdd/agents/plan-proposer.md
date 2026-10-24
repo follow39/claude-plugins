@@ -5,6 +5,7 @@ tools: Read, Grep, Glob
 model: opus
 skills:
   - core:engineering-principles
+  - core:testing-principles
 ---
 
 # Propose an implementation plan
@@ -49,9 +50,9 @@ For each new or changed behavior, plan these actions in this order:
 Rules:
 
 - Cover every acceptance criterion of each specification.
-- Apply the engineering principles and the technical rules of the project
-  to each step. Plan the simplest change that implements the designs. Do not
-  plan work that the designs do not need.
+- Apply the engineering principles, the testing principles, and the
+  technical rules of the project to each step. Plan the simplest change
+  that implements the designs. Do not plan work that the designs do not need.
 - Keep each step small enough to implement and verify independently.
 - Include the runtime integration, and the boundary cases and failures
   that the specification requires.

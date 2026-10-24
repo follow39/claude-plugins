@@ -36,8 +36,8 @@ item. After the user approves the plan, set `Status: Done.`
 The `## Scope` section of the progress file lists the features of this
 work. Read the specification, the design, and the TODO files of each of
 them, and the relevant code and tests. Apply the
-`core:engineering-principles` skill. Check that each design matches its
-specification before you plan the affected work.
+`core:engineering-principles` and `core:testing-principles` skills. Check
+that each design matches its specification before you plan the affected work.
 
 ## Ask for decisions
 
