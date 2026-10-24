@@ -5,6 +5,7 @@ tools: Read, Grep, Glob
 model: opus
 skills:
   - core:engineering-principles
+  - core:testing-principles
 ---
 
 # Review a plan for correctness
@@ -61,8 +62,8 @@ most detail.
   exist, a link that is not a path from the root of the worktree, or an
   action that the executor must guess.
 - Size: a step too large to implement and verify independently.
-- Principles: a step that breaks an engineering principle. Name the
-  principle and the concrete cost or risk.
+- Principles: a step that breaks an engineering or testing principle. Name
+  the principle and the concrete cost or risk.
 
 Give the file path and the line for each fact about the code.
 

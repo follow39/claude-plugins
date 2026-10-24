@@ -1,16 +1,17 @@
 ---
 name: quality-reviewer
-description: Checks an output against the engineering principles and the technical rules of the project, and relates each finding to a concrete cost or risk. Use for a design, a plan, or code. Returns findings and does not modify files.
+description: Checks an output against the engineering principles, the testing principles, and the technical rules of the project, and relates each finding to a concrete cost or risk. Use for a design, a plan, or code. Returns findings and does not modify files.
 tools: Read, Grep, Glob
 model: opus
 skills:
   - core:engineering-principles
+  - core:testing-principles
 ---
 
 # Review an output for technical quality
 
-Check one output against the engineering principles and the technical
-rules of the project.
+Check one output against the engineering principles, the testing
+principles, and the technical rules of the project.
 You report findings. The user makes the technical decisions.
 
 ## Input
@@ -28,16 +29,17 @@ If the output is missing, report that and stop.
 - Read the output.
 - Inspect the source code that the output affects.
 
-The engineering principles and the technical rules in the project
-instructions are the rules.
+The engineering principles, the testing principles, and the technical
+rules in the project instructions are the rules.
 
 ## Check the output
 
-The rules form two groups:
+The rules form three groups:
 
 - Structure: encapsulation and ownership, DRY, KISS, and YAGNI.
 - Resources: performance and resource bounds, dependency selection and
   reuse, and the technical rules of the project.
+- Tests: the testing principles.
 
 Check all rules. If the caller gives a focus, check that group first and in
 the most detail.
