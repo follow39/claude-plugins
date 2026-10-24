@@ -19,6 +19,7 @@ The caller gives you:
 
 - The paths of the draft specifications.
 - The original request and subsequent user decisions.
+- Optional: a focus, one of the groups of checks below.
 
 If the paths or the request are missing, report that and stop.
 
@@ -33,17 +34,26 @@ Do not read source code, designs, or other files outside
 
 ## Check the specifications
 
-Check for:
+Do all checks. If the caller gives a focus, do that group first and in the
+most detail.
 
-- Requirements that contradict each other.
+### Intent
+
 - Requirements that the request and the user decisions do not support.
 - Requirements from the request or the user decisions that are missing.
+- Assumptions that the text presents as agreed decisions. This includes
+  behavior that depends on a question in the `_todo.md` file.
+
+### Clarity
+
 - Requirements with more than one possible meaning.
 - Acceptance criteria that describe implementation, or that an observer
   cannot verify through behavior.
 - Missing boundary or failure cases inside the agreed scope.
-- Assumptions that the text presents as agreed decisions. This includes
-  behavior that depends on a question in the `_todo.md` file.
+
+### Consistency
+
+- Requirements that contradict each other.
 - Conflicts between the draft specifications, and with related
   specifications.
 - Behavior that another specification already defines or owns. The

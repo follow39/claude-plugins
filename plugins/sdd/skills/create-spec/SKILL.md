@@ -162,8 +162,9 @@ After drafting, request these independent reviews. The reviewers work
 separately and do not see each other's findings.
 
 - Start three `sdd:spec-consistency-reviewer` agents. Give each agent the paths
-  of the new and changed specifications, and the original request and
-  subsequent user decisions, in the user's words.
+  of the new and changed specifications, the original request and
+  subsequent user decisions, in the user's words, and a different focus:
+  intent, clarity, or consistency.
 - Start two `sdd:spec-technical-reviewer` agents. Give each agent the paths of
   the new and changed specifications.
 - Start one `core:focus-reviewer` agent. Give it the original request and
