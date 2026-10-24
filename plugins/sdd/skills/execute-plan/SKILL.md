@@ -22,6 +22,20 @@ files. Inspect the Git status. Confirm that the plan still matches the
 current documents and code. When you resume a plan, verify the recorded
 progress before you rely on items marked as done.
 
+## Ask for decisions
+
+Before you ask a set of decisions, show the user the list of all open
+decisions, with a short name for each. When an answer settles or changes
+other decisions, update the list.
+
+Ask each decision with the `AskUserQuestion` tool, one question for each
+call. Give 2 to 4 options. In the description of each option, state its
+practical consequences. Put the recommended option first, and add
+"(Recommended)" to its label. Use previews to compare alternative fixes.
+
+If a decision has more than 4 options, or no fixed options, ask it in
+text.
+
 ## Execute each step
 
 1. Select the next unfinished step whose dependencies are complete.
@@ -66,9 +80,10 @@ check as passing.
 
 ## Handle gaps and findings
 
-For each finding or unclear decision, explain the evidence, alternatives,
-consequences, and recommendation. Wait for the user's answer and clarify it
-before presenting the next decision. Do not silently invent missing actions
+Ask each finding or unclear decision one at a time, as
+[Ask for decisions](#ask-for-decisions) describes. In the question, explain
+the evidence. Clarify an ambiguous answer before you present the next
+decision. Do not silently invent missing actions
 or verification instructions, change requirements, or expand the design.
 
 If a decision changes required behavior, set the `## Specification` section

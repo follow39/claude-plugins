@@ -44,6 +44,21 @@ If a change also changes required behavior, set the `## Specification`
 section of the progress file to `Status: In progress.` and stop. Tell the
 user that the specifications must change first.
 
+## Ask for decisions
+
+Before you ask a set of decisions, show the user the list of all open
+decisions, with a short name for each. When an answer settles or changes
+other decisions, update the list.
+
+Ask each decision with the `AskUserQuestion` tool, one question for each
+call. Give 2 to 4 options. In the description of each option, state its
+practical consequences. Put the recommended option first, and add
+"(Recommended)" to its label. Use previews to compare alternative
+interfaces, data structures, or code sketches.
+
+If a decision has more than 4 options, or no fixed options, ask it in
+text.
+
 ## Read the context
 
 - Read the specification, the existing design, and the TODO files of each
@@ -86,8 +101,8 @@ assumption, and difference in scope or technical approach.
 Resolve factual uncertainty through inspection or relevant evidence.
 Do not ask the user to decide a fact that you can verify.
 
-Present each remaining decision to the user one at a time. Explain the
-alternatives, practical consequences, and your recommendation.
+Ask each remaining decision one at a time, as
+[Ask for decisions](#ask-for-decisions) describes.
 
 Wait for the user's answer before presenting the next decision. Clarify
 an ambiguous answer before you continue. Do not combine decisions.

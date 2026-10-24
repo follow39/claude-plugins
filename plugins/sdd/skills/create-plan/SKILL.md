@@ -39,6 +39,21 @@ them, and the relevant code and tests. Apply the
 `core:engineering-principles` skill. Check that each design matches its
 specification before you plan the affected work.
 
+## Ask for decisions
+
+Before you ask a set of decisions, show the user the list of all open
+decisions, with a short name for each. When an answer settles or changes
+other decisions, update the list.
+
+Ask each decision with the `AskUserQuestion` tool, one question for each
+call. Give 2 to 4 options. In the description of each option, state its
+practical consequences. Put the recommended option first, and add
+"(Recommended)" to its label. Use previews to compare alternative step
+orders or verification commands.
+
+If a decision has more than 4 options, or no fixed options, ask it in
+text.
+
 ## Write the plan
 
 The plan is `${user_config.data_dir}/<repository>/<work>/plan.md`. If it
@@ -69,9 +84,9 @@ reporting procedures out of the plan.
 
 ## Resolve questions
 
-Present the proposer's questions and other unclear decisions to the user one
-at a time. Explain the alternatives and consequences, wait for an answer,
-and clarify it before you continue. Preserve agreed decisions.
+Ask the proposer's questions and other unclear decisions one at a time, as
+[Ask for decisions](#ask-for-decisions) describes. Clarify an ambiguous
+answer before you continue. Preserve agreed decisions.
 
 If a decision changes required behavior, set the `## Specification` section
 of the progress file to `Status: In progress.` If it changes a design

@@ -43,6 +43,21 @@ feature only when the work needs it. If the request is ambiguous, ask the
 user. Present each feature to the user with its name and the reason. When
 the user approves a feature, add its name to the scope immediately.
 
+## Ask for decisions
+
+Before you ask a set of decisions, show the user the list of all open
+decisions, with a short name for each. When an answer settles or changes
+other decisions, update the list.
+
+Ask each decision with the `AskUserQuestion` tool, one question for each
+call. Give 2 to 4 options. In the description of each option, state its
+practical consequences. Put the recommended option first, and add
+"(Recommended)" to its label. Use previews to compare alternative
+wordings of acceptance criteria.
+
+If a decision has more than 4 options, or no fixed options, ask it in
+text.
+
 ## Read the context
 
 - Read the specification and the TODO file of each feature in the scope, if
@@ -76,9 +91,8 @@ Identify every disagreement, ambiguity, unsupported assumption, and
 difference in scope or behavior. Agreement between agents does not
 establish user intent.
 
-Agree on the scope first. Then present one decision at a time. Explain the
-question, available alternatives, and their practical consequences. You can
-recommend an option, but the user chooses.
+Agree on the scope first. Then ask one decision at a time, as
+[Ask for decisions](#ask-for-decisions) describes. The user chooses.
 
 Wait for the user's answer before presenting the next decision. If the
 answer is ambiguous, clarify that same decision before you continue.
