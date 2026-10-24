@@ -6,6 +6,7 @@ model: sonnet
 skills:
   - core:engineering-principles
   - core:testing-principles
+  - core:style-principles
 ---
 
 # Implement a plan step
