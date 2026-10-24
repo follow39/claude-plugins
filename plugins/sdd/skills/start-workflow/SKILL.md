@@ -1,6 +1,7 @@
 ---
 name: start-workflow
 description: Establishes spec-driven development for a new request, and makes sure that the work follows its process. Use when the user starts work on a new request.
+disable-model-invocation: true
 ---
 
 # Start the workflow
