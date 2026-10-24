@@ -20,6 +20,7 @@ The caller gives you:
 - The path of the plan.
 - The user's decisions about the plan, in the user's words, if there are
   any.
+- Optional: a focus, one of the groups of checks below.
 
 If the plan is missing, report that and stop.
 
@@ -32,7 +33,10 @@ If the plan is missing, report that and stop.
 
 ## Check the plan
 
-Check for:
+Do all checks. If the caller gives a focus, do that group first and in the
+most detail.
+
+### Coverage
 
 - Coverage: an acceptance criterion of a specification that no step
   implements and verifies.
@@ -41,11 +45,14 @@ Check for:
 - Runtime: behavior that a step implements but no step connects to the
   running program. A boundary case or a failure that a specification
   requires and no step covers.
+- Existing behavior: a step that plans a change or a failure for behavior
+  that the code already implements.
+
+### Execution
+
 - Tests: a new or changed behavior without this order: write the test,
   confirm the failure, implement, confirm the pass. A test that does not
   check observable behavior. An expected failure without a stated reason.
-- Existing behavior: a step that plans a change or a failure for behavior
-  that the code already implements.
 - Order: a step that needs the result of a later step, or a dependency
   that the plan does not state.
 - Checks: a verification command that the repository cannot run, or a

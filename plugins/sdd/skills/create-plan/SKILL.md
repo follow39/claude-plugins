@@ -111,7 +111,8 @@ Request these independent reviews of the draft. The reviewers work
 separately and do not see each other's findings.
 
 - Start two `sdd:plan-correctness-reviewer` agents. Give each agent the path of
-  the plan and the user's decisions about the plan, in the user's words.
+  the plan, the user's decisions about the plan, in the user's words, and a
+  different focus: coverage or execution.
 - Start one `core:quality-reviewer` agent. Give it the path of the plan as
   the output, and the user's decisions about the plan, in the user's words.
 - Start one `core:focus-reviewer` agent. Give it the paths of the designs and
