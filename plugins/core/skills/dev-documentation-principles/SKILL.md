@@ -1,6 +1,6 @@
 ---
 name: dev-documentation-principles
-description: Developer documentation principles. Use when writing or reviewing developer documentation.
+description: Developer documentation principles. Use when writing or reviewing documentation for the developers who use a component.
 ---
 
 # Developer documentation principles
