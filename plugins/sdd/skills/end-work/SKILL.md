@@ -1,6 +1,6 @@
 ---
 name: end-work
-description: Brings the result of the work into the target branch, and closes the workspace. Use when the user says that the work is complete, or asks to end it.
+description: Brings the result of the work into the target branch, and closes the workspace. Use only as a stage of `sdd:start-workflow`, or to resume this stage of an existing work.
 ---
 
 # End the work

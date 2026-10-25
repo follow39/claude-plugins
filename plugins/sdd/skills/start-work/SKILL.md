@@ -1,6 +1,6 @@
 ---
 name: start-work
-description: Creates an isolated workspace for the work on a user request: a Git worktree and a branch, on a verified base. Use when a piece of work needs its workspace, or when the user asks for a worktree.
+description: Creates an isolated workspace for the work on a user request: a Git worktree and a branch, on a verified base. Use only as a stage of `sdd:start-workflow`, or to resume this stage of an existing work.
 ---
 
 # Start the work

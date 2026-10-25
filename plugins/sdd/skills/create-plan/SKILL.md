@@ -1,6 +1,6 @@
 ---
 name: create-plan
-description: Turns the agreed designs into a plan that implements them. Use when the user asks to plan the implementation of agreed designs. Does not implement the plan.
+description: Turns the agreed designs into a plan that implements them. Does not implement the plan. Use only as a stage of `sdd:start-workflow`, or to resume this stage of an existing work.
 ---
 
 # Create a plan

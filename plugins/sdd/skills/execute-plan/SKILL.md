@@ -1,6 +1,6 @@
 ---
 name: execute-plan
-description: Executes the plan, and makes sure that everything was done as planned and that the goal of the work is achieved. Use when the user asks to implement or resume an approved plan. Does not create a plan.
+description: Executes the plan, and makes sure that everything was done as planned and that the goal of the work is achieved. Does not create a plan. Use only as a stage of `sdd:start-workflow`, or to resume this stage of an existing work.
 ---
 
 # Execute a plan

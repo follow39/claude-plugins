@@ -1,6 +1,6 @@
 ---
 name: create-design
-description: Defines a feasible technical solution for the agreed specification changes. Use when the user asks to design a feature, or to turn agreed specifications into a technical solution.
+description: Defines a feasible technical solution for the agreed specification changes. Use only as a stage of `sdd:start-workflow`, or to resume this stage of an existing work.
 ---
 
 # Create designs

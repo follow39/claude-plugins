@@ -1,6 +1,6 @@
 ---
 name: create-spec
-description: Refines the user request into required behavior. Use when the user asks to specify a feature, or to turn an idea or a request into requirements.
+description: Refines the user request into required behavior. Use only as a stage of `sdd:start-workflow`, or to resume this stage of an existing work.
 ---
 
 # Create specifications
