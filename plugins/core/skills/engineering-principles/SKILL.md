@@ -5,9 +5,8 @@ description: Engineering principles. Use when designing, planning, implementing,
 
 # Engineering principles
 
-Apply these principles when designing, planning, implementing, or reviewing
-technical changes. Explain concrete consequences where relevant. Do not add
-boilerplate sections or abstractions only to satisfy a checklist.
+Do not add boilerplate sections or abstractions only to satisfy a
+checklist.
 
 ## Performance and resource bounds
 

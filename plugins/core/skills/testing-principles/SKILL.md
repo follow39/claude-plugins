@@ -5,8 +5,6 @@ description: Testing principles. Use when planning, writing, or reviewing tests.
 
 # Testing principles
 
-Apply these principles when planning, writing, or reviewing tests.
-
 ## Description and requirements
 
 Before each test, write a short description of the behavior that it

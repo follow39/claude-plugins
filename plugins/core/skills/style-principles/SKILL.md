@@ -5,8 +5,6 @@ description: Code style principles. Use when writing or reviewing code.
 
 # Style principles
 
-Apply these principles when writing or reviewing code.
-
 ## Comments
 
 Write no comment by default. Add a comment only when it tells the reader
