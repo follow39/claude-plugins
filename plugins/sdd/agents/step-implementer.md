@@ -7,6 +7,7 @@ skills:
   - core:engineering-principles
   - core:testing-principles
   - core:style-principles
+  - core:technical-english
 ---
 
 # Implement a plan step

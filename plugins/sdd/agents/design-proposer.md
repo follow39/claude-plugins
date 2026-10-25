@@ -5,6 +5,7 @@ tools: Read, Grep, Glob, WebFetch, WebSearch
 model: opus
 skills:
   - core:engineering-principles
+  - core:technical-english
 ---
 
 # Propose a design

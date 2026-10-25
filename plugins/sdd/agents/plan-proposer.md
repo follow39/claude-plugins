@@ -6,6 +6,7 @@ model: opus
 skills:
   - core:engineering-principles
   - core:testing-principles
+  - core:technical-english
 ---
 
 # Propose an implementation plan
